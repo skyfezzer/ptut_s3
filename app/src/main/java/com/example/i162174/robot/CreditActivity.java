@@ -19,6 +19,7 @@ public class CreditActivity extends AppCompatActivity {
         Menu menu = navigation.getMenu();
         menu.getItem(3).setChecked(true);
         menu.getItem(0).setChecked(false);
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener // CLick element menu
