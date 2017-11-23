@@ -15,6 +15,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScenarioActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ControlleurActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ConnectionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ParametreActivity" android:screenOrientation="portrait"/>
         <activity android:name=".CreditActivity" android:screenOrientation="portrait"/>
     </application>
 

@@ -15,15 +15,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         logoImageView = (ImageView)findViewById(R.id.logoImageView);
-        logoImageView.setImageResource(R.drawable.logo_equipe);
-
 
         new Thread() {
             public void run() {
                 try {
                     sleep(2000);
                 } catch (InterruptedException e) {}
-                Intent intent = new Intent(MainActivity.this, ScenarioActivity.class);
+                Intent intent = new Intent(MainActivity.this, ConnectionActivity.class);
                 startActivity(intent);
             }}.start();
 

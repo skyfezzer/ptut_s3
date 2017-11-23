@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">Projet TUT S3</string>
+    <string name="app_name">Robot EV4 Application</string>
     <string name="menu_scenario">Scénario</string>
     <string name="menu_controller">Controller</string>
     <string name="menu_parametre">Paramètre</string>
     <string name="menu_credit">Crédit</string>
+
+    // ConnectionActivity String
+    <string name="connection_connecter">Connecter Robot</string>
+    <string name="connection_apropos">À propos</string>
+
 </resources>
