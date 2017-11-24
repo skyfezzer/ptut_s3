@@ -1,20 +1,18 @@
-package com.example.i162174.robot;
+package com.example.i162174.robot.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.i162174.robot.R;
 
-    ImageView logoImageView;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        logoImageView = (ImageView)findViewById(R.id.logoImageView);
 
         new Thread() {
             public void run() {
