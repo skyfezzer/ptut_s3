@@ -1,11 +1,11 @@
-package com.example.i162174.robot.activity;
+package activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.i162174.robot.R;
 
-public class ParametreActivity extends AppCompatActivity {
+public class ParametreActivity extends ActivityAvecMenu {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

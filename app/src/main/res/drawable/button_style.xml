@@ -7,29 +7,29 @@
         android:width="2dip"
         android:color="#000000" />
 
-    <!--<item android:state_pressed="true" >-->
-        <!--<shape android:shape="rectangle"  >-->
-            <!--<corners android:radius="5dp" />-->
-            <!--<stroke android:width="1dip" android:color="@color/orange_temp" />-->
-            <!--<gradient android:angle="-90" android:startColor="@color/orange_temp" android:endColor="@color/orange_temp"  />-->
-            <!--<padding-->
-                <!--android:left="10dp"-->
-                <!--android:top="10dp"-->
-                <!--android:right="10dp"-->
-                <!--android:bottom="10dp" />-->
-        <!--</shape>-->
-    <!--</item>-->
+    <item android:state_pressed="true" >
+        <shape android:shape="rectangle"  >
+            <corners android:radius="5dp" />
+            <stroke android:width="1dip" android:color="#FFFFFF" />
+            <gradient android:angle="-90" android:startColor="#00083e" android:endColor="#000b58"  />
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp" />
+        </shape>
+    </item>
 
-    <!--<item>-->
-        <!--<shape android:shape="rectangle"  >-->
-            <!--<corners android:radius="5dp" />-->
-            <!--<stroke android:width="1dip" android:color="@color/button_orange" />-->
-            <!--<gradient android:angle="-90" android:startColor="@color/button_orange" android:endColor="@color/button_orange" />-->
-            <!--<padding-->
-                <!--android:left="10dp"-->
-                <!--android:top="10dp"-->
-                <!--android:right="10dp"-->
-                <!--android:bottom="10dp" />-->
-        <!--</shape>-->
-    <!--</item>-->
+    <item>
+        <shape android:shape="rectangle"  >
+            <corners android:radius="5dp" />
+            <stroke android:width="1dip" android:color="#050404" />
+            <gradient android:angle="-90" android:startColor="#00083e" android:endColor="#000b58"  />
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp" />
+        </shape>
+    </item>
 </selector>

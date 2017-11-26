@@ -1,4 +1,4 @@
-package com.example.i162174.robot.activity;
+package activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {}
                 Intent intent = new Intent(MainActivity.this, ConnectionActivity.class);
                 startActivity(intent);
+                finish();
             }}.start();
 
     }
