@@ -1,6 +1,7 @@
 package autres;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,33 +31,110 @@ public class Gamepad extends GridLayout {
         btn_left.setImageResource(R.drawable.icon_left);
         btn_right.setImageResource(R.drawable.icon_right);
 
-        btn_up.setOnTouchListener(new OnTouchListener() {
+        btn_up.setOnTouchListener(new View.OnTouchListener() { // Avancer
+
+            private Handler mHandler;
+
+            Runnable actionAvancer = new Runnable() {
+                @Override public void run() {
+                    Robot.envoyerCommande(context, Robot.AVANCER);
+                    mHandler.postDelayed(this, 1);
+                }
+            };
 
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mHandler = new Handler();
+                        mHandler.postDelayed(actionAvancer, 1);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        mHandler.removeCallbacks(actionAvancer);
+                        mHandler = null;
+                        return true;
+                }
                 return false;
             }
         });
 
-        btn_down.setOnTouchListener(new OnTouchListener() {
+        btn_down.setOnTouchListener(new View.OnTouchListener() { // Avancer
+
+            private Handler mHandler;
+
+            Runnable actionReculer = new Runnable() {
+                @Override public void run() {
+                    Robot.envoyerCommande(context, Robot.RECULER);
+                    mHandler.postDelayed(this, 1);
+                }
+            };
 
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mHandler = new Handler();
+                        mHandler.postDelayed(actionReculer, 1);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        mHandler.removeCallbacks(actionReculer);
+                        mHandler = null;
+                        return true;
+                }
                 return false;
             }
         });
 
-        btn_left.setOnTouchListener(new OnTouchListener() {
+        btn_left.setOnTouchListener(new View.OnTouchListener() { // Avancer
+
+            private Handler mHandler;
+
+            Runnable actionTournerGauche = new Runnable() {
+                @Override public void run() {
+                    Robot.envoyerCommande(context, Robot.TOURNER_A_GAUCHE);
+                    mHandler.postDelayed(this, 1);
+                }
+            };
 
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mHandler = new Handler();
+                        mHandler.postDelayed(actionTournerGauche, 1);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        mHandler.removeCallbacks(actionTournerGauche);
+                        mHandler = null;
+                        return true;
+                }
                 return false;
             }
         });
 
-        btn_right.setOnTouchListener(new OnTouchListener() {
+        btn_right.setOnTouchListener(new View.OnTouchListener() { // Avancer
+
+            private Handler mHandler;
+
+            Runnable actionTournerDroite = new Runnable() {
+                @Override public void run() {
+                    Robot.envoyerCommande(context, Robot.TOURNER_A_DROITE);
+                    mHandler.postDelayed(this, 1);
+                }
+            };
+
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mHandler = new Handler();
+                        mHandler.postDelayed(actionTournerDroite, 1);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        mHandler.removeCallbacks(actionTournerDroite);
+                        mHandler = null;
+                        return true;
+                }
                 return false;
             }
         });

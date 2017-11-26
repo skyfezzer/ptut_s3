@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Robot EV4 Application</string>
+    <string name="app_name">Robot EV3 Application</string>
     <string name="menu_scenario">Scénario</string>
     <string name="menu_controller">Controller</string>
     <string name="menu_parametre">Paramètre</string>
