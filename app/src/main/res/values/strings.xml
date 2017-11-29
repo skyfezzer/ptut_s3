@@ -8,6 +8,12 @@
     // ConnectionActivity String
     <string name="connection_connecter">Connecter Robot</string>
     <string name="connection_apropos">À propos</string>
+    <string name="connection_dialog_pasbluetooth_titre">Pas de bluetooth !</string>
+    <string name="connection_dialog_pasbluetooth_message">Votre appareil ne possède pas de bluetooth, l\'application va se fermer</string>
+
+    // ScenarioActivity String
+    <string name="scenario_titre">Scénario</string>
+    <string name="scenario_fonction">Fonctionnalitées</string>
 
     //CreditActivity String
     <string name="credit_retour">Retour</string>

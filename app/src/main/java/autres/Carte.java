@@ -2,19 +2,31 @@ package autres;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.v7.widget.AppCompatButton;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-public class Carte extends android.support.v7.widget.AppCompatButton {
-    public int id;
-    public String nom;
-    public boolean dansListe;
+import com.example.i162174.robot.R;
 
-    public Carte(Context context, int id, String nom) {
+public class Carte extends AppCompatButton {
+    public String id, nom;
+
+    public Carte(Context context, String id, String nom) {
         super(context);
         this.id = id;
         this.nom = nom;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(0, 10, 0, 5);
+        setLayoutParams(params);
         this.setText(nom);
-        this.setTextSize(17);
-        this.setTextColor(Color.parseColor("#339933"));
+        this.setTextColor(Color.parseColor("#FFFFFF"));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.setBackground(context.getDrawable(R.drawable.button_style));
+        }
     }
 
     public String getNom() {
@@ -25,19 +37,4 @@ public class Carte extends android.support.v7.widget.AppCompatButton {
         this.nom = nom;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public boolean isDansListe() {
-        return dansListe;
-    }
-
-    public void setDansListe(boolean b){
-        dansListe = b;
-    }
 }

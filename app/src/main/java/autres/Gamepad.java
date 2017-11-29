@@ -37,7 +37,7 @@ public class Gamepad extends GridLayout {
 
             Runnable actionAvancer = new Runnable() {
                 @Override public void run() {
-                    Robot.envoyerCommande(context, Robot.AVANCER);
+                    //Robot.envoyerCommande(context, Robot.AVANCER);
                     mHandler.postDelayed(this, 1);
                 }
             };
@@ -64,7 +64,7 @@ public class Gamepad extends GridLayout {
 
             Runnable actionReculer = new Runnable() {
                 @Override public void run() {
-                    Robot.envoyerCommande(context, Robot.RECULER);
+                    //Robot.envoyerCommande(context, Robot.RECULER);
                     mHandler.postDelayed(this, 1);
                 }
             };
@@ -91,7 +91,7 @@ public class Gamepad extends GridLayout {
 
             Runnable actionTournerGauche = new Runnable() {
                 @Override public void run() {
-                    Robot.envoyerCommande(context, Robot.TOURNER_A_GAUCHE);
+                    //Robot.envoyerCommande(context, Robot.TOURNER_A_GAUCHE);
                     mHandler.postDelayed(this, 1);
                 }
             };
@@ -118,7 +118,7 @@ public class Gamepad extends GridLayout {
 
             Runnable actionTournerDroite = new Runnable() {
                 @Override public void run() {
-                    Robot.envoyerCommande(context, Robot.TOURNER_A_DROITE);
+                    //Robot.envoyerCommande(context, Robot.TOURNER_A_DROITE);
                     mHandler.postDelayed(this, 1);
                 }
             };

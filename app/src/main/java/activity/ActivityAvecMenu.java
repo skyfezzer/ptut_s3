@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import com.example.i162174.robot.R;
 
+import autres.Robot;
+
 public abstract class ActivityAvecMenu extends AppCompatActivity {
 
 
@@ -52,6 +54,7 @@ public abstract class ActivityAvecMenu extends AppCompatActivity {
         btn_menu_quitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Robot.deconnectionRobot(ActivityAvecMenu.this);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     finishAndRemoveTask();
                 }else
@@ -59,6 +62,7 @@ public abstract class ActivityAvecMenu extends AppCompatActivity {
                 System.exit(0);
             }
         });
+
     }
 
 }

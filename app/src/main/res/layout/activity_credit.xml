@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="@string/credit_retour"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"
         android:layout_alignParentBottom="true"/>
 
     <TextView
