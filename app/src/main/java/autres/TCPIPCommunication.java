@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.*;
 
-/**
- * Created by alexi on 29/11/2017.
- */
-
 public class TCPIPCommunication {
     private Socket socket;
     private BufferedWriter bw;

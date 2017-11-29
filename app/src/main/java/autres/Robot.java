@@ -31,13 +31,9 @@ public class Robot {
     public static final String MUSIQUE = "10";
     public static final String DISCONNECT = "99";
 
-    private TCPIPCommunication bluetooth = null;
-    private Context context;
+    private static TCPIPCommunication bluetooth = null;
 
-    public Robot(Context pContext){
-        this.context=pContext;
-    }
-    public void connectionRobot(BluetoothAdapter bluetoothAdapter){
+    public static void connectionRobot(Context context, BluetoothAdapter bluetoothAdapter){
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
 
 
@@ -66,7 +62,7 @@ public class Robot {
     }
 
     // Permet l'émission de la commande voulut au robot
-    public void envoyerCommande(String command) {
+    public static void envoyerCommande(Context context, String command) {
         if (bluetooth == null)
             return;
         try {
@@ -76,12 +72,13 @@ public class Robot {
         }
     }
 
-    public void deconnectionRobot() {
+    public static void deconnectionRobot(Context context) {
         if (bluetooth != null) {
-            envoyerCommande(ARRETER);
-            envoyerCommande(DISCONNECT);
+            envoyerCommande(context, ARRETER);
+            envoyerCommande(context, DISCONNECT);
             bluetooth.close();
             bluetooth = null;
+            Toast.makeText(context, "Déconnexion du robot", LENGTH_LONG).show();
         }
     }
 }

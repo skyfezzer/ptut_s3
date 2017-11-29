@@ -29,12 +29,12 @@ public class Carte extends AppCompatButton {
         }
     }
 
-    public String getNom() {
-        return nom;
+    public String getid() {
+        return id;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public String getNom() {
+        return nom;
     }
 
 }

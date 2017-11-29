@@ -1,5 +1,6 @@
 package autres;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -42,6 +43,7 @@ public class AdapterCarte extends BaseAdapter{
         View v = View.inflate(context, R.layout.item_listview_scenario, null);
         TextView txt = (TextView) v.findViewById(R.id.txt_list);
         txt.setText(data.get(i).getText());
+        txt.setTextColor(Color.parseColor("#FFFFFF"));
 
         ImageView imgTrash = (ImageView) v.findViewById(R.id.img_trash);
         imgTrash.setOnClickListener(new View.OnClickListener() {

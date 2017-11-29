@@ -70,27 +70,14 @@
             android:background="#4C000000"
             android:layout_weight="1">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:textColor="#FFFFFF"
-                    android:text="@string/scenario_fonction"/>
-
-                <ImageView
-                    android:id="@+id/img_qrcode"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/qrcode"/>
-
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:text="@string/scenario_fonction"/>
 
         </LinearLayout>
 
@@ -113,9 +100,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:minHeight="100dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="match_parent"
                 android:background="#4C000000"
+                android:orientation="vertical"
                 android:gravity="center">
 
                 <ListView
@@ -124,14 +111,6 @@
                     android:layout_height="match_parent"/>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_envoyer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Envoyer"
-                android:background="@drawable/button_style"
-                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 

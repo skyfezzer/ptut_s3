@@ -54,7 +54,7 @@ public abstract class ActivityAvecMenu extends AppCompatActivity {
         btn_menu_quitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Robot.deconnectionRobot(ActivityAvecMenu.this);
+                Robot.deconnectionRobot(ActivityAvecMenu.this);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     finishAndRemoveTask();
                 }else
