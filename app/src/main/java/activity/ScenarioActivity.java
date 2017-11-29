@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -11,6 +12,10 @@ import android.widget.Toast;
 
 import com.example.i162174.robot.R;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import autres.AdapterCarte;
@@ -19,6 +24,7 @@ import autres.Robot;
 
 public class ScenarioActivity extends ActivityAvecMenu {
 
+    private static final String FICHIER_SCENARIO = "scenario.txt";
     LinearLayout layoutFonction;
     ListView listViewScenario;
     public ArrayList<Carte> listeCarteScenario, listeCarte;
@@ -32,6 +38,23 @@ public class ScenarioActivity extends ActivityAvecMenu {
 
         layoutFonction = (LinearLayout) findViewById(R.id.layoutFonction);
         listViewScenario = (ListView) findViewById(R.id.listViewScenario);
+        Button btn_save = (Button) findViewById(R.id.btn_save);
+        Button btn_load = (Button) findViewById(R.id.btn_load);
+
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sauvegarderScenario();
+            }
+        });
+
+        btn_load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chargerScenario();
+            }
+        });
+
         listeCarteScenario = new ArrayList<>();
 
         adapter = new AdapterCarte(this, listeCarteScenario);
@@ -103,6 +126,45 @@ public class ScenarioActivity extends ActivityAvecMenu {
             }
         });
         layoutFonction.addView(carteEnvoyer);
+    }
+
+    private void sauvegarderScenario(){
+        FileOutputStream output = null;
+        String userName = "Apollidore";
+
+        try {
+            output = openFileOutput(FICHIER_SCENARIO, MODE_PRIVATE);
+            output.write(userName.getBytes());
+            Toast.makeText(this, "SAUVEGARDE REUSSI", Toast.LENGTH_SHORT).show();
+            if(output != null)
+                output.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            Toast.makeText(this, "Erreur sauvegarde ", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void chargerScenario(){
+        FileInputStream input = null;
+        String userName = "";
+        int octet;
+
+        try {
+            input = openFileInput(FICHIER_SCENARIO);
+            while((octet = input.read()) != -1){
+                userName = ""+new char[octet];
+            }
+            if(input != null)
+                input.close();
+            Toast.makeText(this, "LOAD REUSSI : "+userName, Toast.LENGTH_SHORT).show();
+        } catch (FileNotFoundException e) {
+            Toast.makeText(this, "Fichier non trouvé ", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "Erreur lecture sauvegarde ", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void envoyerScenario() {

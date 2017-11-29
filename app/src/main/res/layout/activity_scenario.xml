@@ -79,6 +79,25 @@
                 android:textColor="#FFFFFF"
                 android:text="@string/scenario_fonction"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sauvegarde"/>
+
+                <Button
+                    android:id="@+id/btn_load"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Charger"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

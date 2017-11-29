@@ -40,7 +40,7 @@ public class ConnectionActivity extends AppCompatActivity {
         btn_connecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                connexionBluetooth();
+                //connexionBluetooth();
                 startActivity(new Intent(ConnectionActivity.this, ScenarioActivity.class));
                 finish();
             }
