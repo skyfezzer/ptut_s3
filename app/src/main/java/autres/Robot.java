@@ -19,75 +19,69 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class Robot {
 
-    public static final int AVANCER = 0;
-    public static final int RECULER = 1;
-    public static final int TOURNER_A_DROITE = 2;
-    public static final int TOURNER_A_GAUCHE = 3;
-    public static final int ARRETER = 4;
-    public static final int TOURNER_LE_BRAS = 5;
-    public static final int PAUSE = 7;
-    public static final int DETECTER_SON = 8;
-    public static final int BIP = 9;
-    public static final int MUSIQUE = 10;
-    public static final int DISCONNECT = 99;
+    public static final String AVANCER = "00";
+    public static final String RECULER = "01";
+    public static final String TOURNER_A_DROITE = "02";
+    public static final String TOURNER_A_GAUCHE = "03";
+    public static final String ARRETER = "04";
+    public static final String TOURNER_LE_BRAS = "05";
+    public static final String PAUSE = "07";
+    public static final String DETECTER_SON = "08";
+    public static final String BIP = "09";
+    public static final String MUSIQUE = "10";
+    public static final String DISCONNECT = "99";
 
-    public static DataOutputStream ev3Dos;
-    public static BluetoothSocket ev3BTsocket;
+    private TCPIPCommunication bluetooth = null;
+    private Context context;
 
-    public static void connectionRobot(Context context, BluetoothAdapter bluetoothAdapter){
+    public Robot(Context pContext){
+        this.context=pContext;
+    }
+    public void connectionRobot(BluetoothAdapter bluetoothAdapter){
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
-        BluetoothDevice ev3Device = null;
+
 
         for (BluetoothDevice bluetoothDevice : bondedDevices) {
             if (bluetoothDevice.getName().equals("EV3") || bluetoothDevice.getName().equals("NXT")) {
-                ev3Device = bluetoothDevice;
+                try {
+                    bluetooth = new TCPIPCommunication(bluetoothDevice.getAddress());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Problème d'ouverture de connexion", LENGTH_LONG).show();
+                }
                 break;
             }
         }
 
-        if (ev3Device == null) {
+        if (bluetooth == null) {
             Toast toast = Toast.makeText(context, "Aucun EV3 associé trouvé", LENGTH_LONG);
             toast.show();
             return;
         }
 
-        try {
-            ev3BTsocket = ev3Device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-            ev3BTsocket.connect();
-            ev3Dos = new DataOutputStream(ev3BTsocket.getOutputStream());
-            context.startActivity(new Intent(context, ScenarioActivity.class));
-            ((Activity) context).finish();
-            Toast.makeText(context, "Connection reussi", LENGTH_LONG).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(context, "Problème d'ouverture de connexion", LENGTH_LONG).show();
-        }
+        context.startActivity(new Intent(context, ScenarioActivity.class));
+        ((Activity) context).finish();
+        Toast.makeText(context, "Connection reussi", LENGTH_LONG).show();
+
     }
 
     // Permet l'émission de la commande voulut au robot
-    public static void envoyerCommande(Context context, int command) {
-        if (ev3Dos == null)
+    public void envoyerCommande(String command) {
+        if (bluetooth == null)
             return;
         try {
-            ev3Dos.writeInt(command);
-            ev3Dos.flush();
+            bluetooth.send(command);
         } catch (IOException ioe) {
             Toast.makeText(context, "Problème d'envoi de commande", LENGTH_LONG).show();
         }
     }
 
-    public static void deconnectionRobot(Context context) {
-        try {
-            if (ev3BTsocket != null) {
-                envoyerCommande(context, ARRETER);
-                envoyerCommande(context, DISCONNECT);
-                ev3BTsocket.close();
-                ev3BTsocket = null;
-            }
-            ev3Dos = null;
-        } catch (IOException e) {
-            Toast toast = Toast.makeText(context, "Problème de fermeture de connexion", Toast.LENGTH_SHORT);
-            toast.show();
+    public void deconnectionRobot() {
+        if (bluetooth != null) {
+            envoyerCommande(ARRETER);
+            envoyerCommande(DISCONNECT);
+            bluetooth.close();
+            bluetooth = null;
         }
     }
 }
