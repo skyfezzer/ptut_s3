@@ -8,26 +8,32 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.i162174.robot.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import autres.AdapterCarte;
+import autres.ButtonCarte;
 import autres.Carte;
 import autres.Robot;
 
 public class ScenarioActivity extends ActivityAvecMenu {
 
     private static final String FICHIER_SCENARIO = "scenario.txt";
-    LinearLayout layoutFonction;
-    ListView listViewScenario;
-    public ArrayList<Carte> listeCarteScenario, listeCarte;
+    private LinearLayout layoutFonction;
+    private ListView listViewScenario;
+    public ArrayList<ButtonCarte> listeCarte;
+    public ArrayList<Carte> listeCarteScenario;
     public AdapterCarte adapter;
 
     @Override
@@ -64,16 +70,16 @@ public class ScenarioActivity extends ActivityAvecMenu {
     }
 
     private void initialisationListeFonctionEtCarte() {
-        Carte avancer = new Carte(this, Robot.AVANCER, "Avancer");
-        Carte reculer = new Carte(this, Robot.RECULER, "Reculer");
-        Carte tournerG = new Carte(this, Robot.TOURNER_A_GAUCHE, "Tourner à gauche");
-        Carte tournerD = new Carte(this, Robot.TOURNER_A_DROITE, "Tourner à droite");
-        Carte arreter = new Carte(this, Robot.ARRETER, "Arrêter");
-        Carte tournerB = new Carte(this, Robot.TOURNER_LE_BRAS, "Tourner le bras");
-        Carte pause = new Carte(this, Robot.PAUSE, "Pause");
-        Carte detecterSon = new Carte(this, Robot.DETECTER_SON, "Détecter un son");
-        Carte bip = new Carte(this, Robot.BIP, "Bipper");
-        Carte musique = new Carte(this, Robot.MUSIQUE, "Musique");
+        ButtonCarte avancer = new ButtonCarte(this, new Carte("Avancer", Robot.AVANCER));
+        ButtonCarte reculer = new ButtonCarte(this, new Carte("Reculer", Robot.RECULER));
+        ButtonCarte tournerG = new ButtonCarte(this, new Carte("Tourner a gauche", Robot.TOURNER_A_GAUCHE));
+        ButtonCarte tournerD = new ButtonCarte(this, new Carte("Tourner a droite", Robot.TOURNER_A_DROITE));
+        ButtonCarte arreter = new ButtonCarte(this, new Carte("Arreter", Robot.ARRETER));
+        ButtonCarte tournerB = new ButtonCarte(this, new Carte("Tourner le bras", Robot.TOURNER_LE_BRAS));
+        ButtonCarte pause = new ButtonCarte(this, new Carte("Pause", Robot.PAUSE));
+        ButtonCarte detecterSon = new ButtonCarte(this, new Carte("Detecter un son", Robot.DETECTER_SON));
+        ButtonCarte bip = new ButtonCarte(this, new Carte("Bipper", Robot.BIP));
+        ButtonCarte musique = new ButtonCarte(this, new Carte("Jouer Musique", Robot.MUSIQUE));
 
         listeCarte = new ArrayList<>();
         listeCarte.add(avancer);
@@ -87,20 +93,19 @@ public class ScenarioActivity extends ActivityAvecMenu {
         listeCarte.add(bip);
         listeCarte.add(musique);
 
-        for(final Carte carte : listeCarte){
-            carte.setOnClickListener(new View.OnClickListener() {
+        for(final ButtonCarte btnCarte : listeCarte){
+            btnCarte.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listeCarteScenario.add(carte);
+                    listeCarteScenario.add(btnCarte.getCarte());
                     adapter.notifyDataSetChanged();
                 }
             });
-            layoutFonction.addView(carte);
+            layoutFonction.addView(btnCarte);
         }
 
 
-        ImageView img_qrcode = new ImageView(this);
-        img_qrcode.setImageResource(R.drawable.qrcode);
+        ImageView img_qrcode =  (ImageView) findViewById(R.id.img_qrcode);
         img_qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,9 +121,8 @@ public class ScenarioActivity extends ActivityAvecMenu {
                 }
             }
         });
-        layoutFonction.addView(img_qrcode);
 
-        Carte carteEnvoyer = new Carte(this, "", "Envoyer");
+        ButtonCarte carteEnvoyer = new ButtonCarte(this, new Carte("Envoyer", ""));
         carteEnvoyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,115 +133,111 @@ public class ScenarioActivity extends ActivityAvecMenu {
     }
 
     private void sauvegarderScenario(){
-        FileOutputStream output = null;
-        String userName = "Apollidore";
-
+        FileOutputStream output;
+        String json = new Gson().toJson(listeCarteScenario);
         try {
             output = openFileOutput(FICHIER_SCENARIO, MODE_PRIVATE);
-            output.write(userName.getBytes());
-            Toast.makeText(this, "SAUVEGARDE REUSSI", Toast.LENGTH_SHORT).show();
-            if(output != null)
-                output.close();
+            output.write(json.getBytes());
+            output.close();
+            Toast.makeText(this, "Sauvegarde réussi !", Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Toast.makeText(this, "File not Found exception", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Erreur sauvegarde ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Erreur sauvegarde !", Toast.LENGTH_SHORT).show();
         }
 
     }
 
     private void chargerScenario(){
-        FileInputStream input = null;
-        String userName = "";
-        int octet;
-
+        String readFile = "";
         try {
-            input = openFileInput(FICHIER_SCENARIO);
-            while((octet = input.read()) != -1){
-                userName = ""+new char[octet];
+            FileInputStream fis = openFileInput(FICHIER_SCENARIO);
+            int i;
+            while((i = fis.read()) != -1) {
+                readFile = readFile + (char)i;
             }
-            if(input != null)
-                input.close();
-            Toast.makeText(this, "LOAD REUSSI : "+userName, Toast.LENGTH_SHORT).show();
-        } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Fichier non trouvé ", Toast.LENGTH_SHORT).show();
+            fis.close();
+            Type type = new TypeToken<ArrayList<Carte>>(){}.getType();
+            listeCarteScenario = new Gson().fromJson(readFile, type);
+            adapter = new AdapterCarte(this, listeCarteScenario);
+            listViewScenario.setAdapter(adapter);
+            Toast.makeText(this, "Chargement scénario effectué", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Erreur lecture sauvegarde ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void envoyerScenario() {
         for(Carte c : listeCarteScenario){
-            Robot.envoyerCommande(this, c.getid());
+            Robot.envoyerCommande(this, c.getActionRobot());
         }
     }
 
-    protected void checkResultFlashCode(String result){
-        Carte c;
-        switch(result){
-            case "AVANCER":
-                c = new Carte(this, Robot.AVANCER, "Avancer");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "RECULER":
-                c = new Carte(this, Robot.RECULER, "Reculer");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "TOURNERGAUCHE":
-                c = new Carte(this, Robot.TOURNER_A_GAUCHE, "Tourner à gauche");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "TOURNERDROITE":
-                c = new Carte(this, Robot.TOURNER_A_DROITE, "Tourner à droite");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "ARRETER":
-                c = new Carte(this, Robot.ARRETER, "Arrêter");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "TOURNERBRAS":
-                c = new Carte(this, Robot.TOURNER_LE_BRAS, "Tourner le bras");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "PAUSE":
-                c = new Carte(this, Robot.PAUSE, "Pause");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "DETECTERSON":
-                c = new Carte(this, Robot.DETECTER_SON, "Détecter un son");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "BIP":
-                c = new Carte(this, Robot.BIP, "Bipper");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            case "MUSIQUE":
-                c = new Carte(this, Robot.MUSIQUE, "Musique");
-                listeCarteScenario.add(c);
-                adapter.notifyDataSetChanged();
-                break;
-            default:
-                Toast.makeText(this, "Le code flashé est mauvais !", Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
+//    protected void checkResultFlashCode(String result){
+//        Carte c;
+//        switch(result){
+//            case "AVANCER":
+//                c = new Carte(this, Robot.AVANCER, "Avancer");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "RECULER":
+//                c = new Carte(this, Robot.RECULER, "Reculer");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "TOURNERGAUCHE":
+//                c = new Carte(this, Robot.TOURNER_A_GAUCHE, "Tourner à gauche");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "TOURNERDROITE":
+//                c = new Carte(this, Robot.TOURNER_A_DROITE, "Tourner à droite");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "ARRETER":
+//                c = new Carte(this, Robot.ARRETER, "Arrêter");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "TOURNERBRAS":
+//                c = new Carte(this, Robot.TOURNER_LE_BRAS, "Tourner le bras");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "PAUSE":
+//                c = new Carte(this, Robot.PAUSE, "Pause");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "DETECTERSON":
+//                c = new Carte(this, Robot.DETECTER_SON, "Détecter un son");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "BIP":
+//                c = new Carte(this, Robot.BIP, "Bipper");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            case "MUSIQUE":
+//                c = new Carte(this, Robot.MUSIQUE, "Musique");
+//                listeCarteScenario.add(c);
+//                adapter.notifyDataSetChanged();
+//                break;
+//            default:
+//                Toast.makeText(this, "Le code flashé est mauvais !", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
-            checkResultFlashCode(data.getStringExtra("SCAN_RESULT"));
+//            checkResultFlashCode(data.getStringExtra("SCAN_RESULT"));
         }
         if(resultCode == RESULT_CANCELED){
             Toast.makeText(this, "Action annulée", Toast.LENGTH_SHORT).show();
