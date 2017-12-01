@@ -1,4 +1,4 @@
-package autres;
+package vue;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,6 +7,8 @@ import android.support.v7.widget.AppCompatButton;
 import android.widget.LinearLayout;
 
 import com.example.i162174.robot.R;
+
+import autres.Carte;
 
 public class ButtonCarte extends AppCompatButton {
 

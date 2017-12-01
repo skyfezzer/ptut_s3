@@ -1,4 +1,4 @@
-package autres;
+package vue;
 
 import android.content.Context;
 import android.os.Handler;

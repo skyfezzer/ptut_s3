@@ -3,18 +3,19 @@ package activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.i162174.robot.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,13 +24,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import autres.AdapterCarte;
-import autres.ButtonCarte;
+import dialog.DialogChargementScenario;
+import dialog.DialogSauvegardeScenario;
+import vue.ButtonCarte;
 import autres.Carte;
 import autres.Robot;
 
 public class ScenarioActivity extends ActivityAvecMenu {
 
-    private static final String FICHIER_SCENARIO = "scenario.txt";
     private LinearLayout layoutFonction;
     private ListView listViewScenario;
     public ArrayList<ButtonCarte> listeCarte;
@@ -133,10 +135,17 @@ public class ScenarioActivity extends ActivityAvecMenu {
     }
 
     private void sauvegarderScenario(){
+        if(listeCarteScenario.isEmpty())
+            Toast.makeText(this, "Le scénario est vide !", Toast.LENGTH_SHORT).show();
+        else
+            new DialogSauvegardeScenario(this).show();
+    }
+
+    public void save(String nameFile){
         FileOutputStream output;
         String json = new Gson().toJson(listeCarteScenario);
         try {
-            output = openFileOutput(FICHIER_SCENARIO, MODE_PRIVATE);
+            output = openFileOutput(nameFile, MODE_PRIVATE);
             output.write(json.getBytes());
             output.close();
             Toast.makeText(this, "Sauvegarde réussi !", Toast.LENGTH_SHORT).show();
@@ -145,14 +154,24 @@ public class ScenarioActivity extends ActivityAvecMenu {
         } catch (IOException e) {
             Toast.makeText(this, "Erreur sauvegarde !", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void chargerScenario(){
-        String readFile = "";
+        File repertoire = getFilesDir();
+        File[] files = repertoire.listFiles();
+        
+        if(files.length == 0)
+            Toast.makeText(this, "Pas de sauvegarde trouvé !", Toast.LENGTH_SHORT).show();
+        else{
+            new DialogChargementScenario(this, files).show();
+        }
+    }
+
+    public void load(String nomFichier){
         try {
-            FileInputStream fis = openFileInput(FICHIER_SCENARIO);
+            FileInputStream fis = openFileInput(nomFichier);
             int i;
+            String readFile = "";
             while((i = fis.read()) != -1) {
                 readFile = readFile + (char)i;
             }

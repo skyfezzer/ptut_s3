@@ -33,16 +33,16 @@ public class ConnectionActivity extends AppCompatActivity {
         }
 
         if (!bluetoothAdapter.isEnabled()) {
-            bluetoothAdapter.enable();
+            //bluetoothAdapter.enable();
         }
 
         Button btn_connecter = (Button) findViewById(R.id.btn_connecter);
         btn_connecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                connexionBluetooth();
-                //startActivity(new Intent(ConnectionActivity.this, ScenarioActivity.class));
-                //finish();
+//                connexionBluetooth();
+                startActivity(new Intent(ConnectionActivity.this, ScenarioActivity.class));
+                finish();
             }
         });
 
