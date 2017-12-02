@@ -56,6 +56,14 @@ public class ConnectionActivity extends AppCompatActivity {
             }
         });
 
+        Button btn_parametre = (Button) findViewById(R.id.btn_parametre);
+        btn_parametre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ConnectionActivity.this, ParametreActivity.class));
+                finish();
+            }
+        });
 
     }
 

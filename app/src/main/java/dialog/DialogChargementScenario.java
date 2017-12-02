@@ -12,8 +12,10 @@ import android.widget.ListView;
 import com.example.i162174.robot.R;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import activity.ScenarioActivity;
+import adapter.AdapterFichier;
 
 public class DialogChargementScenario extends Dialog {
 
@@ -25,17 +27,17 @@ public class DialogChargementScenario extends Dialog {
 
         ListView listViewSauvegarde = (ListView) findViewById(R.id.listViewSauvegarde);
         File[] files = pFiles;
-        final String[] filesName = new String[files.length];
+        final ArrayList<String> filesName = new ArrayList<>();
         for(int i = 0; i < files.length; i++)
-            filesName[i] = files[i].getName();
+            filesName.add(files[i].getName());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, filesName);
+        AdapterFichier adapter = new AdapterFichier(context, filesName);
         listViewSauvegarde.setAdapter(adapter);
 
         listViewSauvegarde.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                context.load(filesName[i]);
+                context.load(filesName.get(i));
                 dismiss();
             }
         });

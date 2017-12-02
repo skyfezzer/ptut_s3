@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <EditTextPreference
+        android:key="editTextNomRobot"
+        android:dialogTitle="Nom robot"
+        android:positiveButtonText="OK"
+        android:negativeButtonText="Annuler"
+        android:title="Nom robot"
+        android:summary="Saissisez le nom du robot auquel vous voulez vous connecter."/>
+
+</PreferenceScreen>

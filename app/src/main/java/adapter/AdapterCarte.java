@@ -1,4 +1,4 @@
-package autres;
+package adapter;
 
 import android.graphics.Color;
 import android.view.View;
@@ -12,6 +12,7 @@ import com.example.i162174.robot.R;
 import java.util.ArrayList;
 
 import activity.ScenarioActivity;
+import autres.Carte;
 
 public class AdapterCarte extends BaseAdapter{
 

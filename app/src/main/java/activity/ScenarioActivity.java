@@ -3,7 +3,6 @@ package activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,7 +22,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import autres.AdapterCarte;
+import adapter.AdapterCarte;
 import dialog.DialogChargementScenario;
 import dialog.DialogSauvegardeScenario;
 import vue.ButtonCarte;
@@ -192,71 +191,71 @@ public class ScenarioActivity extends ActivityAvecMenu {
         }
     }
 
-//    protected void checkResultFlashCode(String result){
-//        Carte c;
-//        switch(result){
-//            case "AVANCER":
-//                c = new Carte(this, Robot.AVANCER, "Avancer");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "RECULER":
-//                c = new Carte(this, Robot.RECULER, "Reculer");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "TOURNERGAUCHE":
-//                c = new Carte(this, Robot.TOURNER_A_GAUCHE, "Tourner à gauche");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "TOURNERDROITE":
-//                c = new Carte(this, Robot.TOURNER_A_DROITE, "Tourner à droite");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "ARRETER":
-//                c = new Carte(this, Robot.ARRETER, "Arrêter");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "TOURNERBRAS":
-//                c = new Carte(this, Robot.TOURNER_LE_BRAS, "Tourner le bras");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "PAUSE":
-//                c = new Carte(this, Robot.PAUSE, "Pause");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "DETECTERSON":
-//                c = new Carte(this, Robot.DETECTER_SON, "Détecter un son");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "BIP":
-//                c = new Carte(this, Robot.BIP, "Bipper");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            case "MUSIQUE":
-//                c = new Carte(this, Robot.MUSIQUE, "Musique");
-//                listeCarteScenario.add(c);
-//                adapter.notifyDataSetChanged();
-//                break;
-//            default:
-//                Toast.makeText(this, "Le code flashé est mauvais !", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
-//    }
+    protected void checkResultFlashCode(String result){
+        Carte c;
+        switch(result){
+            case "AVANCER":
+                c = new Carte("Avancer", Robot.AVANCER);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "RECULER":
+                c = new Carte("Reculer", Robot.RECULER);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "TOURNERGAUCHE":
+                c = new Carte("Tourner a gauche", Robot.TOURNER_A_GAUCHE);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "TOURNERDROITE":
+                c = new Carte("Tourner a droite", Robot.TOURNER_A_DROITE);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "ARRETER":
+                c = new Carte("Arreter", Robot.ARRETER);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "TOURNERBRAS":
+                c = new Carte("Tourner le bras", Robot.TOURNER_LE_BRAS);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "PAUSE":
+                c = new Carte("Pause", Robot.PAUSE);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "DETECTERSON":
+                c = new Carte("Detecter un son", Robot.DETECTER_SON);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "BIP":
+                c = new Carte("Bipper", Robot.BIP);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            case "MUSIQUE":
+                c = new Carte("Jouer Musique", Robot.MUSIQUE);
+                listeCarteScenario.add(c);
+                adapter.notifyDataSetChanged();
+                break;
+            default:
+                Toast.makeText(this, "Le code flashé est mauvais !", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
-//            checkResultFlashCode(data.getStringExtra("SCAN_RESULT"));
+            checkResultFlashCode(data.getStringExtra("SCAN_RESULT"));
         }
         if(resultCode == RESULT_CANCELED){
             Toast.makeText(this, "Action annulée", Toast.LENGTH_SHORT).show();
