@@ -1,13 +1,12 @@
 package autres;
 
-import android.os.AsyncTask;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.*;
 
-public class TCPIPCommunication extends AsyncTask{
+public class TCPIPCommunication{
     private Socket socket;
     private BufferedWriter bw;
 
@@ -31,10 +30,5 @@ public class TCPIPCommunication extends AsyncTask{
         } catch (Exception ex) {
             System.out.println(ex);
         }
-    }
-
-    @Override
-    protected Object doInBackground(Object[] objects) {
-        return null;
     }
 }

@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.widget.Toast;
 
 import java.io.DataOutputStream;
@@ -34,6 +35,9 @@ public class Robot {
     private static TCPIPCommunication bluetooth = null;
 
     public static void connectionRobot(Context context, BluetoothAdapter bluetoothAdapter){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
 
 
