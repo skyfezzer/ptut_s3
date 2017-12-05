@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.example.i162174.robot.R;
 
 import autres.Robot;
-
+//Tanguy was there
 public abstract class ActivityAvecMenu extends AppCompatActivity {
 
 
