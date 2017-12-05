@@ -1,9 +1,8 @@
 package activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.i162174.robot.R;
 
@@ -18,7 +17,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(2000);
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(MainActivity.this, ConnectionActivity.class);
                 startActivity(intent);
                 finish();

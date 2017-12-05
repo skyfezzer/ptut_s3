@@ -1,12 +1,9 @@
 package dialog;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.i162174.robot.R;
@@ -26,10 +23,10 @@ public class DialogChargementScenario extends Dialog {
         setTitle("Listes des sauvegardes");
 
         ListView listViewSauvegarde = (ListView) findViewById(R.id.listViewSauvegarde);
-        File[] files = pFiles;
         final ArrayList<String> filesName = new ArrayList<>();
-        for(int i = 0; i < files.length; i++)
-            filesName.add(files[i].getName());
+        for (File file : pFiles) {
+            filesName.add(file.getName());
+        }
 
         AdapterFichier adapter = new AdapterFichier(context, filesName);
         listViewSauvegarde.setAdapter(adapter);

@@ -1,6 +1,5 @@
 package activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,7 +10,7 @@ import android.widget.Button;
 import com.example.i162174.robot.R;
 
 import autres.Robot;
-//Tanguy was there
+
 public abstract class ActivityAvecMenu extends AppCompatActivity {
 
 

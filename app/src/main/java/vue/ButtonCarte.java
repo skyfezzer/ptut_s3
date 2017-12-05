@@ -12,12 +12,10 @@ import autres.Carte;
 
 public class ButtonCarte extends AppCompatButton {
 
-    private String nom;
     private Carte carte;
 
     public ButtonCarte(Context context, Carte c) {
         super(context);
-        this.nom = nom;
         this.carte = c;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -30,10 +28,6 @@ public class ButtonCarte extends AppCompatButton {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.setBackground(context.getDrawable(R.drawable.button_style));
         }
-    }
-
-    public String getNom() {
-        return nom;
     }
 
     public Carte getCarte() {

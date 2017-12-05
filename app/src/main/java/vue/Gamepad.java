@@ -31,7 +31,7 @@ public class Gamepad extends GridLayout {
         btn_left.setImageResource(R.drawable.icon_left);
         btn_right.setImageResource(R.drawable.icon_right);
 
-        btn_up.setOnTouchListener(new View.OnTouchListener() { // Avancer
+        btn_up.setOnTouchListener(new OnTouchListener() { // Avancer
 
             private Handler mHandler;
 
@@ -58,7 +58,7 @@ public class Gamepad extends GridLayout {
             }
         });
 
-        btn_down.setOnTouchListener(new View.OnTouchListener() { // Avancer
+        btn_down.setOnTouchListener(new OnTouchListener() { // Avancer
 
             private Handler mHandler;
 
@@ -85,7 +85,7 @@ public class Gamepad extends GridLayout {
             }
         });
 
-        btn_left.setOnTouchListener(new View.OnTouchListener() { // Avancer
+        btn_left.setOnTouchListener(new OnTouchListener() { // Avancer
 
             private Handler mHandler;
 
@@ -112,7 +112,7 @@ public class Gamepad extends GridLayout {
             }
         });
 
-        btn_right.setOnTouchListener(new View.OnTouchListener() { // Avancer
+        btn_right.setOnTouchListener(new OnTouchListener() { // Avancer
 
             private Handler mHandler;
 

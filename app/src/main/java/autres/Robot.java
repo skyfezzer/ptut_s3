@@ -6,12 +6,11 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
-import android.os.StrictMode;
 import android.widget.Toast;
 
-import java.io.DataOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.UUID;
@@ -22,7 +21,7 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class Robot {
 
-    public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     public static final String AVANCER = "00";
     public static final String RECULER = "01";
@@ -34,11 +33,10 @@ public class Robot {
     public static final String DETECTER_SON = "08";
     public static final String BIP = "09";
     public static final String MUSIQUE = "10";
-    public static final String DISCONNECT = "99";
+    private static final String DISCONNECT = "99";
 
     private static BluetoothSocket socket = null;
-    private static OutputStream outputStream;
-
+    private static BufferedWriter oStream;
 
     public static void connectionRobot(Context context, BluetoothAdapter bluetoothAdapter){
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
@@ -47,8 +45,12 @@ public class Robot {
             if (bluetoothDevice.getName().equals("EV3") || bluetoothDevice.getName().equals("NXT")) {
                 try {
                     socket = creerSocket(bluetoothDevice);
+                    assert socket != null;
                     socket.connect();
-                    outputStream = socket.getOutputStream();
+                    oStream = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    envoyerCommande(context, "01");
+                    context.startActivity(new Intent(context, ScenarioActivity.class));
+                    ((Activity) context).finish();
                     Toast.makeText(context, "Connecter au robot !", LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -61,16 +63,13 @@ public class Robot {
         if (socket == null) {
             Toast toast = Toast.makeText(context, "Aucun EV3 associé trouvé", LENGTH_LONG);
             toast.show();
-            return;
         }
 
-        context.startActivity(new Intent(context, ScenarioActivity.class));
-        ((Activity) context).finish();
     }
 
     private static BluetoothSocket creerSocket(BluetoothDevice bluetoothDevice){
         try {
-            Method m = bluetoothDevice.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", new Class[] { UUID.class });
+            Method m = bluetoothDevice.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", UUID.class);
             return (BluetoothSocket) m.invoke(bluetoothDevice, MY_UUID);
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,11 +79,15 @@ public class Robot {
 
     // Permet l'émission de la commande voulut au robot
     public static void envoyerCommande(Context context, String command) {
-        if (socket == null)
+        if (socket == null){
+            Toast.makeText(context, "Vous n'êtes pas connecter au robot", LENGTH_LONG).show();
             return;
+        }
         try {
-            outputStream.write(command.getBytes());
-        } catch (IOException ioe) {
+            oStream.flush();
+            oStream.write(command);
+            oStream.flush();
+        } catch (IOException e) {
             Toast.makeText(context, "Problème d'envoi de commande", LENGTH_LONG).show();
         }
     }

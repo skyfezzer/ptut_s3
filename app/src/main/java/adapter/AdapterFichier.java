@@ -1,5 +1,6 @@
 package adapter;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,7 +17,7 @@ import activity.ScenarioActivity;
 public class AdapterFichier extends BaseAdapter{
 
     private ArrayList<String> data;
-    ScenarioActivity context;
+    private ScenarioActivity context;
 
     public AdapterFichier(ScenarioActivity pContext, ArrayList<String> pData) {
         this.data = pData;
@@ -40,7 +41,7 @@ public class AdapterFichier extends BaseAdapter{
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        View v = View.inflate(context, R.layout.item_listview_scenario, null);
+        @SuppressLint("ViewHolder") View v = View.inflate(context, R.layout.item_listview_scenario, null);
         TextView txt = (TextView) v.findViewById(R.id.txt_list);
         txt.setText(data.get(i));
 

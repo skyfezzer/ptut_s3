@@ -1,8 +1,6 @@
 package activity;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -14,12 +12,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.i162174.robot.R;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.Method;
-import java.util.Set;
-import java.util.UUID;
 
 import autres.Robot;
 
@@ -41,7 +33,7 @@ public class ConnectionActivity extends AppCompatActivity {
         }
 
         if (!bluetoothAdapter.isEnabled()) {
-            //bluetoothAdapter.enable();
+            bluetoothAdapter.enable();
         }
 
         Button btn_connecter = (Button) findViewById(R.id.btn_connecter);

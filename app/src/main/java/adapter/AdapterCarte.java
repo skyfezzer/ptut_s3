@@ -1,5 +1,6 @@
 package adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import autres.Carte;
 public class AdapterCarte extends BaseAdapter{
 
     private ArrayList<Carte> data;
-    ScenarioActivity context;
+    private ScenarioActivity context;
 
     public AdapterCarte(ScenarioActivity pContext, ArrayList<Carte> pData) {
         this.data = pData;
@@ -41,7 +42,7 @@ public class AdapterCarte extends BaseAdapter{
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        View v = View.inflate(context, R.layout.item_listview_scenario, null);
+        @SuppressLint("ViewHolder") View v = View.inflate(context, R.layout.item_listview_scenario, null);
         TextView txt = (TextView) v.findViewById(R.id.txt_list);
         txt.setText(data.get(i).getNom());
         txt.setTextColor(Color.parseColor("#FFFFFF"));

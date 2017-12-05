@@ -170,13 +170,13 @@ public class ScenarioActivity extends ActivityAvecMenu {
         try {
             FileInputStream fis = openFileInput(nomFichier);
             int i;
-            String readFile = "";
+            StringBuilder readFile = new StringBuilder();
             while((i = fis.read()) != -1) {
-                readFile = readFile + (char)i;
+                readFile.append((char) i);
             }
             fis.close();
             Type type = new TypeToken<ArrayList<Carte>>(){}.getType();
-            listeCarteScenario = new Gson().fromJson(readFile, type);
+            listeCarteScenario = new Gson().fromJson(readFile.toString(), type);
             adapter = new AdapterCarte(this, listeCarteScenario);
             listViewScenario.setAdapter(adapter);
             Toast.makeText(this, "Chargement scénario effectué", Toast.LENGTH_SHORT).show();
