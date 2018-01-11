@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_scenario"
+        android:enabled="true"
+        android:icon="@drawable/ic_scenario"
+        android:title="Scénario"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/navigation_joystick"
+        android:enabled="true"
+        android:icon="@drawable/ic_joystick"
+        android:title="Joystick"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/navigation_apropos"
+        android:enabled="true"
+        android:icon="@drawable/ic_apropos"
+        android:title="A propos"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/navigation_quitter"
+        android:enabled="true"
+        android:icon="@drawable/ic_quitter"
+        android:title="Quitter"
+        app:showAsAction="ifRoom" />
+
+</menu>

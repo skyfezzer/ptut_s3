@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
@@ -10,57 +11,23 @@
         android:scaleType="centerCrop"
         android:src="@drawable/fond" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutMenu"
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_menu_scenario"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_style"
-            android:text="@string/menu_item1"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/btn_menu_joystick"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_style"
-            android:text="@string/menu_item2"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/btn_menu_apropos"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_style"
-            android:text="@string/menu_item3"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/btn_menu_quitter"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_style"
-            android:text="@string/menu_item4"
-            android:textColor="#FFFFFF" />
-
-    </LinearLayout>
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:menu="@menu/navigation" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_above="@id/linearLayoutMenu">
+        android:layout_above="@id/navigation">
 
         <ScrollView
             android:layout_width="0dp"

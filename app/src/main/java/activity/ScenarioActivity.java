@@ -1,8 +1,14 @@
 package activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,13 +29,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import adapter.AdapterCarte;
+import autres.BottomNavigationViewHelper;
 import dialog.DialogChargementScenario;
 import dialog.DialogSauvegardeScenario;
 import vue.ButtonCarte;
 import autres.Carte;
 import autres.Robot;
 
-public class ScenarioActivity extends ActivityAvecMenu {
+public class ScenarioActivity extends Activity {
 
     private LinearLayout layoutFonction;
     private ListView listViewScenario;
@@ -41,7 +48,7 @@ public class ScenarioActivity extends ActivityAvecMenu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scenario);
-        initialisationMenu();
+        initNavigationMenu();
 
         layoutFonction = (LinearLayout) findViewById(R.id.layoutFonction);
         listViewScenario = (ListView) findViewById(R.id.listViewScenario);
@@ -248,6 +255,42 @@ public class ScenarioActivity extends ActivityAvecMenu {
                 Toast.makeText(this, "Le code flashé est mauvais !", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    private void initNavigationMenu() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        final String nameClass = getClass().getName();
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.navigation_scenario:
+                        break;
+                    case R.id.navigation_joystick:
+                        startActivity(new Intent(ScenarioActivity.this, ControlleurActivity.class));
+                        finish();
+                        break;
+                    case R.id.navigation_apropos:
+                        startActivity(new Intent(ScenarioActivity.this, CreditActivity.class).putExtra("From", nameClass));                        finish();
+                        break;
+                    case R.id.navigation_quitter:
+                        Robot.deconnectionRobot(ScenarioActivity.this);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                            finishAndRemoveTask();
+                        }else
+                            finish();
+                        System.exit(0);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
