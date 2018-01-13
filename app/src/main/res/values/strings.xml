@@ -17,11 +17,11 @@
 
     //CreditActivity String
     <string name="credit_retour">Retour</string>
-    <string name="credit_titre">Crédit</string>
+    <string name="credit_titre">A propos</string>
     <string name="credit_presentation">Cette application à été développer dans le cadre d\'un projet tutoré à l\'IUT de Laval.\Le groupe est composé des membres suivant :\n\nAlexis Ragot\nDamien Legagnoux\nHugo Guerry\nTanguy Grossin\n\nTuteur : Lahcen Oubahssi</string>
 
     // Menu Item String
-    <string name="menu_item1">Scénario</string>
+    <string name="menu_item1">Scénario:</string>
     <string name="menu_item2">Joystick</string>
     <string name="menu_item3">À propos</string>
     <string name="menu_item4">Quitter</string>

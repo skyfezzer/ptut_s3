@@ -84,9 +84,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:text="@string/scenario_titre"
+                android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
                 android:textSize="40sp"
-                android:textColor="#000000"
-                android:text="@string/scenario_titre"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_envoyer"

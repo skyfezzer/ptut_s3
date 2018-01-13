@@ -29,12 +29,13 @@
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/credit_titre"
         android:textAlignment="center"
-        android:textSize="120sp"
-        android:textColor="#000000"
-        android:text="@string/credit_titre"/>
+        android:textColor="@android:color/background_light"
+        android:textSize="64sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
