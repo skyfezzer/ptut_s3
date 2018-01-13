@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.i162174.robot.R;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
@@ -50,10 +52,10 @@ public class Robot {
                     envoyerCommande(context, "01");
                     context.startActivity(new Intent(context, ScenarioActivity.class));
                     ((Activity) context).finish();
-                    Toast.makeText(context, "Connecté au robot !", LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.connection_reussi, LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(context, "Problème d'ouverture de connexion", LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.connection_fail, LENGTH_LONG).show();
                 }
                 break;
             }
@@ -81,7 +83,7 @@ public class Robot {
         command +="\n";
         Log.e("MESSAGE ENVOYÉ :", command);
         if (socket == null){
-            Toast.makeText(context, "Vous n'êtes pas connecté au robot", LENGTH_LONG).show();
+            Toast.makeText(context, R.string.connection_non_connecte, LENGTH_LONG).show();
             return;
         }
         try {
@@ -89,7 +91,7 @@ public class Robot {
             oStream.write(command.getBytes());
             oStream.flush();
             oStream.close();
-            Toast.makeText(context, "Envoyé", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.connection_message_envoye, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -107,7 +109,7 @@ public class Robot {
             }
             oStream = null;
             socket = null;
-            Toast.makeText(context, "Déconnexion du robot", LENGTH_LONG).show();
+            Toast.makeText(context, R.string.connection_ended, LENGTH_LONG).show();
         }
     }
 }

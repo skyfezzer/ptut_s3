@@ -26,4 +26,10 @@
     <string name="menu_item3">À propos</string>
     <string name="menu_item4">Quitter</string>
 
+    // Robot
+    <string name="connection_reussi">Connecté au robot !</string>
+    <string name="connection_fail">Problème d\'ouverture de connexion</string>
+    <string name="connection_non_connecte">Vous n\'êtes pas connecté au robot</string>
+    <string name="connection_message_envoye">Envoyé</string>
+    <string name="connection_ended">Déconnecté du robot</string>
 </resources>
