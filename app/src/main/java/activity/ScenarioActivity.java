@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -130,14 +131,14 @@ public class ScenarioActivity extends Activity {
             }
         });
 
-        ButtonCarte carteEnvoyer = new ButtonCarte(this, new Carte("Envoyer", ""));
-        carteEnvoyer.setOnClickListener(new View.OnClickListener() {
+        Button btn_envoyer = (Button)findViewById(R.id.btn_envoyer);
+        btn_envoyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 envoyerScenario();
             }
         });
-        layoutFonction.addView(carteEnvoyer);
+        //layoutFonction.addView(carteEnvoyer);
     }
 
     private void sauvegarderScenario(){
@@ -194,6 +195,7 @@ public class ScenarioActivity extends Activity {
 
     private void envoyerScenario() {
         for(Carte c : listeCarteScenario){
+            Log.e("CARTE",c.getNom());
             Robot.envoyerCommande(this, c.getActionRobot());
         }
     }

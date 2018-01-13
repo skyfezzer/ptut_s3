@@ -13,6 +13,7 @@ import com.example.i162174.robot.R;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.UUID;
@@ -39,6 +40,7 @@ public class Robot {
 
     private static BluetoothSocket socket;
     private static OutputStream oStream;
+    private static OutputStreamWriter osw;
 
     public static void connectionRobot(Context context, BluetoothAdapter bluetoothAdapter){
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
@@ -49,7 +51,9 @@ public class Robot {
                     socket = creerSocket(bluetoothDevice);
                     assert socket != null;
                     socket.connect();
-                    envoyerCommande(context, "01");
+                    oStream = socket.getOutputStream();
+                    osw = new OutputStreamWriter(oStream);
+                    envoyerCommande(context, "05");
                     context.startActivity(new Intent(context, ScenarioActivity.class));
                     ((Activity) context).finish();
                     Toast.makeText(context, R.string.connection_reussi, LENGTH_LONG).show();
@@ -80,17 +84,16 @@ public class Robot {
 
     // Permet l'émission de la commande voulut au robot
     public static void envoyerCommande(Context context, String command) {
-        command +="\n";
+        command += "\n";
         Log.e("MESSAGE ENVOYÉ :", command);
         if (socket == null){
             Toast.makeText(context, R.string.connection_non_connecte, LENGTH_LONG).show();
             return;
         }
         try {
-            oStream = socket.getOutputStream();
-            oStream.write(command.getBytes());
-            oStream.flush();
-            oStream.close();
+            osw.flush();
+            osw.write(command);
+            osw.flush();
             Toast.makeText(context, R.string.connection_message_envoye, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -102,6 +105,7 @@ public class Robot {
             envoyerCommande(context, ARRETER);
             envoyerCommande(context, DISCONNECT);
             try {
+                osw.close();
                 oStream.close();
                 socket.close();
             } catch (IOException e) {
