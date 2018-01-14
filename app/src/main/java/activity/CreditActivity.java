@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.i162174.robot.R;
 
@@ -16,7 +16,7 @@ public class CreditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_credit);
 
 
-        Button btn_retour = (Button) findViewById(R.id.btn_retour);
+        ImageView btn_retour = (ImageView) findViewById(R.id.btn_retour);
         btn_retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

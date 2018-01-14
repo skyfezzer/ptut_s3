@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.example.i162174.robot.R;
 
+import autres.Robot;
+
 public class Gamepad extends GridLayout {
 
     public Gamepad(Context context, AttributeSet attrs) {
@@ -37,8 +39,8 @@ public class Gamepad extends GridLayout {
 
             Runnable actionAvancer = new Runnable() {
                 @Override public void run() {
-                    //Robot.envoyerCommande(context, Robot.AVANCER);
-                    mHandler.postDelayed(this, 1);
+                    Robot.envoyerCommande(context, Robot.AVANCER);
+                    mHandler.postDelayed(this, 10);
                 }
             };
 
@@ -47,10 +49,12 @@ public class Gamepad extends GridLayout {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         mHandler = new Handler();
-                        mHandler.postDelayed(actionAvancer, 1);
+                        mHandler.postDelayed(actionAvancer, 10);
                         return true;
                     case MotionEvent.ACTION_UP:
                         mHandler.removeCallbacks(actionAvancer);
+                        Robot.envoyerCommande(context, Robot.ARRETER);
+                        Robot.envoyerCommande(context, Robot.ARRETER);
                         mHandler = null;
                         return true;
                 }
@@ -64,8 +68,8 @@ public class Gamepad extends GridLayout {
 
             Runnable actionReculer = new Runnable() {
                 @Override public void run() {
-                    //Robot.envoyerCommande(context, Robot.RECULER);
-                    mHandler.postDelayed(this, 1);
+                    Robot.envoyerCommande(context, Robot.RECULER);
+                    mHandler.postDelayed(this, 10);
                 }
             };
 
@@ -74,10 +78,12 @@ public class Gamepad extends GridLayout {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         mHandler = new Handler();
-                        mHandler.postDelayed(actionReculer, 1);
+                        mHandler.postDelayed(actionReculer, 10);
                         return true;
                     case MotionEvent.ACTION_UP:
                         mHandler.removeCallbacks(actionReculer);
+                        Robot.envoyerCommande(context, Robot.ARRETER);
+                        Robot.envoyerCommande(context, Robot.ARRETER);
                         mHandler = null;
                         return true;
                 }
@@ -91,8 +97,8 @@ public class Gamepad extends GridLayout {
 
             Runnable actionTournerGauche = new Runnable() {
                 @Override public void run() {
-                    //Robot.envoyerCommande(context, Robot.TOURNER_A_GAUCHE);
-                    mHandler.postDelayed(this, 1);
+                    Robot.envoyerCommande(context, Robot.TOURNER_A_GAUCHE);
+                    mHandler.postDelayed(this, 1000);
                 }
             };
 
@@ -101,10 +107,12 @@ public class Gamepad extends GridLayout {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         mHandler = new Handler();
-                        mHandler.postDelayed(actionTournerGauche, 1);
+                        mHandler.postDelayed(actionTournerGauche, 1000);
                         return true;
                     case MotionEvent.ACTION_UP:
                         mHandler.removeCallbacks(actionTournerGauche);
+                        Robot.envoyerCommande(context, Robot.ARRETER);
+                        Robot.envoyerCommande(context, Robot.ARRETER);
                         mHandler = null;
                         return true;
                 }
@@ -118,8 +126,8 @@ public class Gamepad extends GridLayout {
 
             Runnable actionTournerDroite = new Runnable() {
                 @Override public void run() {
-                    //Robot.envoyerCommande(context, Robot.TOURNER_A_DROITE);
-                    mHandler.postDelayed(this, 1);
+                    Robot.envoyerCommande(context, Robot.TOURNER_A_DROITE);
+                    mHandler.postDelayed(this, 1000);
                 }
             };
 
@@ -128,10 +136,12 @@ public class Gamepad extends GridLayout {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         mHandler = new Handler();
-                        mHandler.postDelayed(actionTournerDroite, 1);
+                        mHandler.postDelayed(actionTournerDroite, 1000);
                         return true;
                     case MotionEvent.ACTION_UP:
                         mHandler.removeCallbacks(actionTournerDroite);
+                        Robot.envoyerCommande(context, Robot.ARRETER);
+                        Robot.envoyerCommande(context, Robot.ARRETER);
                         mHandler = null;
                         return true;
                 }
