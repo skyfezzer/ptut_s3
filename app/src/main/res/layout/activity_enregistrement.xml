@@ -16,28 +16,30 @@
         android:layout_width="200dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/logo_joystick"/>
+        android:src="@drawable/logo_enregistrement"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
         android:layout_below="@id/logo"
-        android:orientation="vertical">
+        android:layout_above="@id/navigation">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:text="@string/controlleur_context"/>
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:text="@string/enregistrement_context"/>
+
+        <ListView
+            android:id="@+id/listViewEnregistrement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
-    <vue.Gamepad
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_centerInParent="true"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

@@ -17,10 +17,17 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/navigation_enregistrement"
+        android:enabled="true"
+        android:icon="@drawable/ic_enregistrement"
+        android:title="Enregistrement"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/navigation_apropos"
         android:enabled="true"
         android:icon="@drawable/ic_apropos"
-        android:title="A propos"
+        android:title="À propos"
         app:showAsAction="ifRoom" />
 
     <item

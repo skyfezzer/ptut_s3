@@ -2,9 +2,11 @@ package activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
@@ -21,17 +23,16 @@ import com.example.i162174.robot.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import adapter.AdapterCarte;
 import autres.BottomNavigationViewHelper;
-import dialog.DialogChargementScenario;
 import dialog.DialogSauvegardeScenario;
 import vue.ButtonCarte;
 import autres.Carte;
@@ -54,19 +55,11 @@ public class ScenarioActivity extends Activity {
         layoutFonction = (LinearLayout) findViewById(R.id.layoutFonction);
         listViewScenario = (ListView) findViewById(R.id.listViewScenario);
         Button btn_save = (Button) findViewById(R.id.btn_save);
-        Button btn_load = (Button) findViewById(R.id.btn_load);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sauvegarderScenario();
-            }
-        });
-
-        btn_load.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chargerScenario();
             }
         });
 
@@ -76,43 +69,38 @@ public class ScenarioActivity extends Activity {
         listViewScenario.setAdapter(adapter);
 
         initialisationListeFonctionEtCarte();
+
+        String nomScenario = getIntent().getStringExtra("nomScenario");
+        if(nomScenario != null) load(nomScenario);
     }
 
     private void initialisationListeFonctionEtCarte() {
-        ButtonCarte avancer = new ButtonCarte(this, new Carte("Avancer", Robot.AVANCER));
-        ButtonCarte reculer = new ButtonCarte(this, new Carte("Reculer", Robot.RECULER));
-        ButtonCarte tournerG = new ButtonCarte(this, new Carte("Tourner a gauche", Robot.TOURNER_A_GAUCHE));
-        ButtonCarte tournerD = new ButtonCarte(this, new Carte("Tourner a droite", Robot.TOURNER_A_DROITE));
-        ButtonCarte arreter = new ButtonCarte(this, new Carte("Arreter", Robot.ARRETER));
-        ButtonCarte tournerB = new ButtonCarte(this, new Carte("Tourner le bras", Robot.TOURNER_LE_BRAS));
-        ButtonCarte pause = new ButtonCarte(this, new Carte("Pause", Robot.PAUSE));
-        ButtonCarte detecterSon = new ButtonCarte(this, new Carte("Detecter un son", Robot.DETECTER_SON));
-        ButtonCarte bip = new ButtonCarte(this, new Carte("Bipper", Robot.BIP));
-        ButtonCarte musique = new ButtonCarte(this, new Carte("Jouer Musique", Robot.MUSIQUE));
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String loadListeCarteJSON = preferences.getString("ListeCarteJSON", "");
 
         listeCarte = new ArrayList<>();
-        listeCarte.add(avancer);
-        listeCarte.add(reculer);
-        listeCarte.add(tournerG);
-        listeCarte.add(tournerD);
-        listeCarte.add(arreter);
-        listeCarte.add(tournerB);
-        listeCarte.add(pause);
-        listeCarte.add(detecterSon);
-        listeCarte.add(bip);
-        listeCarte.add(musique);
-
-        for(final ButtonCarte btnCarte : listeCarte){
-            btnCarte.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listeCarteScenario.add(btnCarte.getCarte());
-                    adapter.notifyDataSetChanged();
-                }
-            });
-            layoutFonction.addView(btnCarte);
+        if(loadListeCarteJSON.equals("")){
+            Toast.makeText(this, "Veuillez créer des cartes dans les réglages administrateurs", Toast.LENGTH_SHORT).show();
         }
+        else{
+            Type type = new TypeToken<ArrayList<ButtonCarte>>(){}.getType();
+            ArrayList<Carte> loadListeCarte = new Gson().fromJson(loadListeCarteJSON, type);
 
+            for(Carte c : loadListeCarte)
+                listeCarte.add(new ButtonCarte(this, c));
+
+
+            for(final ButtonCarte btnCarte : listeCarte){
+                btnCarte.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listeCarteScenario.add(btnCarte.getCarte());
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                layoutFonction.addView(btnCarte);
+            }
+        }
 
         ImageView img_qrcode =  (ImageView) findViewById(R.id.img_qrcode);
         img_qrcode.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +126,6 @@ public class ScenarioActivity extends Activity {
                 envoyerScenario();
             }
         });
-        //layoutFonction.addView(carteEnvoyer);
     }
 
     private void sauvegarderScenario(){
@@ -160,17 +147,6 @@ public class ScenarioActivity extends Activity {
             Toast.makeText(this, "File not Found exception", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Toast.makeText(this, "Erreur sauvegarde !", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void chargerScenario(){
-        File repertoire = getFilesDir();
-        File[] files = repertoire.listFiles();
-        
-        if(files.length == 0)
-            Toast.makeText(this, "Pas de sauvegarde trouvé !", Toast.LENGTH_SHORT).show();
-        else{
-            new DialogChargementScenario(this, files).show();
         }
     }
 
@@ -276,6 +252,10 @@ public class ScenarioActivity extends Activity {
                         break;
                     case R.id.navigation_joystick:
                         startActivity(new Intent(ScenarioActivity.this, ControlleurActivity.class));
+                        finish();
+                        break;
+                    case R.id.navigation_enregistrement:
+                        startActivity(new Intent(ScenarioActivity.this, EnregistrementActivity.class));
                         finish();
                         break;
                     case R.id.navigation_apropos:

@@ -17,7 +17,7 @@ public class DialogSauvegardeScenario extends AlertDialog.Builder{
         super(context);
 
         final EditText input = new EditText(context);
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
         setView(input);
         setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -37,7 +37,7 @@ public class DialogSauvegardeScenario extends AlertDialog.Builder{
                     context.save(nomFichier);
             }
         });
-        setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

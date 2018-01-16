@@ -20,17 +20,26 @@ public class CreditActivity extends AppCompatActivity {
         btn_retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String activity = getIntent().getStringExtra("From");
-                Class callerClass = null;
-                try {
-                    callerClass = Class.forName(activity);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                startActivity(new Intent(CreditActivity.this, callerClass));
-                finish();
+            retour();
             }
         });
+    }
+
+    private void retour() {
+        String activity = getIntent().getStringExtra("From");
+        Class callerClass = null;
+        try {
+            callerClass = Class.forName(activity);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        startActivity(new Intent(CreditActivity.this, callerClass));
+        finish();
+    }
+
+    @Override
+    public void onBackPressed(){
+        retour();
     }
 
 }

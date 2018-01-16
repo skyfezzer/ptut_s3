@@ -20,6 +20,7 @@
         </activity>
         <activity android:name="activity.ScenarioActivity" android:screenOrientation="portrait"/>
         <activity android:name="activity.ControlleurActivity" android:screenOrientation="portrait"/>
+        <activity android:name="activity.EnregistrementActivity" android:screenOrientation="portrait"/>
         <activity android:name="activity.ConnectionActivity" android:screenOrientation="portrait"/>
         <activity android:name="activity.ParametreActivity" android:screenOrientation="portrait"/>
         <activity android:name="activity.CreditActivity" android:screenOrientation="portrait"/>

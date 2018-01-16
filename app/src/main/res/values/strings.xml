@@ -9,19 +9,26 @@
     <string name="connection_connecter">Connecter Robot</string>
     <string name="connection_apropos">À propos</string>
     <string name="connection_dialog_pasbluetooth_titre">Pas de bluetooth !</string>
-    <string name="connection_dialog_pasbluetooth_message">Votre appareil ne possède pas de bluetooth, l\'application va se fermer</string>
+    <string name="connection_dialog_pasbluetooth_message">Votre appareil ne possède pas de bluetooth, l\'application va se fermer.</string>
 
     // ScenarioActivity String
     <string name="scenario_titre">Scénario</string>
     <string name="scenario_fonction">Fonctionnalitées</string>
+    <string name="scenario_context">Cette page vous permet de créer vos scénarios.\nEn cliquant sur une fonctionnalitées, cela l\'ajoute dans le scénario.\nVous pouvez ensuite envoyé le scénario au robot qui l'exécutera.</string>
+
+
+    <string name="controlleur_context">Cette page vous permet de piloter votre robot en temps réel.</string>
+
+    // EnregistrementActivity
+    <string name="enregistrement_context">Cette page recence l\'ensemble des scénarios que vous avez enregistré.\nVous pouvez cliquer dessus afin de voir le détail et le charger dans la page Scénario.</string>
 
     //CreditActivity String
     <string name="credit_retour">Retour</string>
-    <string name="credit_titre">A propos</string>
-    <string name="credit_presentation">Cette application à été développer dans le cadre d\'un projet tutoré à l\'IUT de Laval.\Le groupe est composé des membres suivant :\n\nAlexis Ragot\nDamien Legagnoux\nHugo Guerry\nTanguy Grossin\n\nTuteur : Lahcen Oubahssi</string>
+    <string name="credit_titre">À propos</string>
+    <string name="credit_presentation">Cette application à été développer dans le cadre d\'un projet tutoré à l\'IUT de Laval.\nLe groupe est composé des membres suivant :\n\nAlexis Ragot\nDamien Legagnoux\nHugo Guerry\nTanguy Grossin\n\nTuteur : Lahcen Oubahssi</string>
 
     // Menu Item String
-    <string name="menu_item1">Scénario:</string>
+    <string name="menu_item1">Scénario</string>
     <string name="menu_item2">Joystick</string>
     <string name="menu_item3">À propos</string>
     <string name="menu_item4">Quitter</string>

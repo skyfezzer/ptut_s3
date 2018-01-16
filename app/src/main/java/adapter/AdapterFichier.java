@@ -1,6 +1,7 @@
 package adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,9 +18,9 @@ import activity.ScenarioActivity;
 public class AdapterFichier extends BaseAdapter{
 
     private ArrayList<String> data;
-    private ScenarioActivity context;
+    private Activity context;
 
-    public AdapterFichier(ScenarioActivity pContext, ArrayList<String> pData) {
+    public AdapterFichier(Activity pContext, ArrayList<String> pData) {
         this.data = pData;
         this.context= pContext;
     }

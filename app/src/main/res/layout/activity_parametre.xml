@@ -3,12 +3,40 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <EditTextPreference
-        android:key="editTextNomRobot"
-        android:dialogTitle="Nom robot"
-        android:positiveButtonText="OK"
-        android:negativeButtonText="Annuler"
-        android:title="Nom robot"
-        android:summary="Saissisez le nom du robot auquel vous voulez vous connecter."/>
+    <PreferenceCategory android:title="Connexion">
+
+        <EditTextPreference
+            android:key="editTextNomRobot"
+            android:dialogTitle="Nom robot"
+            android:positiveButtonText="OK"
+            android:negativeButtonText="Annuler"
+            android:title="Nom robot"
+            android:summary="Saissisez le nom du robot auquel vous voulez vous connecter."
+            android:defaultValue="EV3"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Administration">
+
+        <Preference android:title="Ajouter une carte"
+            android:key="ajouterCarte"
+            android:summary="Ajouter une carte dans l'interface Scénario."/>
+
+        <Preference android:title="Supprimer une carte"
+            android:key="supprimerCarte"
+            android:summary="Supprimer une carte dans l'interface Scénario."/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Debugage">
+
+        <CheckBoxPreference
+            android:key="checkboxDebug"
+            android:title="Accéder sans robot"
+            android:summaryOn="Déselectionné pour permettre la connexion au robot."
+            android:summaryOff="Sélectionné pour passer l'étape de connexion."
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

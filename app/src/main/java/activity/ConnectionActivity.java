@@ -3,12 +3,15 @@ package activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.i162174.robot.R;
@@ -32,17 +35,18 @@ public class ConnectionActivity extends AppCompatActivity {
             creerDialogPasDeBluetooth();
         }
 
-        if (!bluetoothAdapter.isEnabled()) {
-//            bluetoothAdapter.enable();
-        }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final Boolean debug = preferences.getBoolean("debug", false);
 
         Button btn_connecter = (Button) findViewById(R.id.btn_connecter);
         btn_connecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                connexionBluetooth();
-               // startActivity(new Intent(ConnectionActivity.this, ScenarioActivity.class));
-                //finish();
+                if(!debug) connexionBluetooth();
+                else{
+                    startActivity(new Intent(ConnectionActivity.this, ScenarioActivity.class));
+                    finish();
+                }
             }
         });
 
@@ -56,7 +60,7 @@ public class ConnectionActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_parametre = (Button) findViewById(R.id.btn_parametre);
+        ImageView btn_parametre = (ImageView) findViewById(R.id.btn_parametre);
         btn_parametre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

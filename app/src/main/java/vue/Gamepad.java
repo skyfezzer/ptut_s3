@@ -34,28 +34,14 @@ public class Gamepad extends GridLayout {
         btn_right.setImageResource(R.drawable.icon_right);
 
         btn_up.setOnTouchListener(new OnTouchListener() { // Avancer
-
-            private Handler mHandler;
-
-            Runnable actionAvancer = new Runnable() {
-                @Override public void run() {
-                    Robot.envoyerCommande(context, Robot.AVANCER);
-                    mHandler.postDelayed(this, 10);
-                }
-            };
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        mHandler = new Handler();
-                        mHandler.postDelayed(actionAvancer, 10);
+                        Robot.envoyerCommande(context, Robot.AVANCER);
                         return true;
                     case MotionEvent.ACTION_UP:
-                        mHandler.removeCallbacks(actionAvancer);
                         Robot.envoyerCommande(context, Robot.ARRETER);
-                        Robot.envoyerCommande(context, Robot.ARRETER);
-                        mHandler = null;
                         return true;
                 }
                 return false;
@@ -64,27 +50,14 @@ public class Gamepad extends GridLayout {
 
         btn_down.setOnTouchListener(new OnTouchListener() { // Avancer
 
-            private Handler mHandler;
-
-            Runnable actionReculer = new Runnable() {
-                @Override public void run() {
-                    Robot.envoyerCommande(context, Robot.RECULER);
-                    mHandler.postDelayed(this, 10);
-                }
-            };
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        mHandler = new Handler();
-                        mHandler.postDelayed(actionReculer, 10);
+                        Robot.envoyerCommande(context, Robot.RECULER);
                         return true;
                     case MotionEvent.ACTION_UP:
-                        mHandler.removeCallbacks(actionReculer);
                         Robot.envoyerCommande(context, Robot.ARRETER);
-                        Robot.envoyerCommande(context, Robot.ARRETER);
-                        mHandler = null;
                         return true;
                 }
                 return false;

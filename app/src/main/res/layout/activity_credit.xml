@@ -21,17 +21,12 @@
         android:src="@drawable/ic_retour"
         android:layout_alignParentBottom="true"/>
 
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:text="@string/credit_titre"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light"
-        android:textSize="64sp"
-        android:textStyle="bold" />
+        android:src="@drawable/logo_credit"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

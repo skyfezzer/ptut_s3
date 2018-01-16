@@ -41,14 +41,12 @@
 
     </LinearLayout>
 
-    <Button
+    <ImageView
         android:id="@+id/btn_parametre"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_alignParentBottom="true"
-        android:drawableRight="@drawable/icon_parametre"
-        android:background="@drawable/button_style"
-        android:textColor="#FFFFFF" />
+        android:src="@drawable/icon_parametre" />
 
 </RelativeLayout>
