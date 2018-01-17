@@ -111,7 +111,6 @@
                 android:orientation="vertical"
                 android:layout_weight="1">
 
-
                 <ListView
                     android:id="@+id/listViewScenario"
                     android:background="#4C000000"

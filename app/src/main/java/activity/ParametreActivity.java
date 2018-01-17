@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 
 import com.example.i162174.robot.R;
 
+import dialog.DialogAjouterCarte;
+
 public class ParametreActivity extends PreferenceActivity {
 
     @Override
@@ -19,6 +21,20 @@ public class ParametreActivity extends PreferenceActivity {
         Preference ajouterCartePref = findPreference("ajouterCarte");
         Preference supprimerCartePref = findPreference("supprimerCarte");
         Preference checkboxDebug = findPreference("checkboxDebug");
+
+        ajouterCartePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                new DialogAjouterCarte(ParametreActivity.this).show();
+                return true;
+            }
+        });
+
+        supprimerCartePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+
+                return true;
+            }
+        });
 
         checkboxDebug.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ParametreActivity.this);

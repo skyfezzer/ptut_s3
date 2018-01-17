@@ -16,6 +16,7 @@ public class DialogSauvegardeScenario extends AlertDialog.Builder{
     public DialogSauvegardeScenario(@NonNull final ScenarioActivity context) {
         super(context);
 
+        setTitle("Nom du scénario");
         final EditText input = new EditText(context);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         setView(input);

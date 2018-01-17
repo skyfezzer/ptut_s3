@@ -91,7 +91,6 @@ public class Robot {
             return;
         }
         try {
-            osw.flush();
             osw.write(command);
             osw.flush();
             Toast.makeText(context, R.string.connection_message_envoye, Toast.LENGTH_SHORT).show();

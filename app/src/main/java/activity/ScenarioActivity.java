@@ -78,28 +78,35 @@ public class ScenarioActivity extends Activity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String loadListeCarteJSON = preferences.getString("ListeCarteJSON", "");
 
+        Type type = new TypeToken<ArrayList<ButtonCarte>>(){}.getType();
+        ArrayList<Carte> loadListeCarte;
+        if(loadListeCarteJSON.equals("")) loadListeCarte = new ArrayList<Carte>();
+        else loadListeCarte = new Gson().fromJson(loadListeCarteJSON, type);
+
         listeCarte = new ArrayList<>();
-        if(loadListeCarteJSON.equals("")){
-            Toast.makeText(this, "Veuillez créer des cartes dans les réglages administrateurs", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Type type = new TypeToken<ArrayList<ButtonCarte>>(){}.getType();
-            ArrayList<Carte> loadListeCarte = new Gson().fromJson(loadListeCarteJSON, type);
+        listeCarte.add(new ButtonCarte(this, new Carte("Avancer", Robot.AVANCER, 2, new String[]{"Durée (s)", "Vitesse"})));
+        listeCarte.add(new ButtonCarte(this, new Carte("Reculer", Robot.RECULER, 2, new String[]{"Durée (s)", "Vitesse"})));
+        listeCarte.add(new ButtonCarte(this, new Carte("Tourner a gauche", Robot.TOURNER_A_GAUCHE, 1, new String[]{"Degrée (°)"})));
+        listeCarte.add(new ButtonCarte(this, new Carte("Tourner a droite", Robot.TOURNER_A_DROITE, 1, new String[]{"Degrée (°)"})));
+        listeCarte.add(new ButtonCarte(this, new Carte("Arreter", Robot.ARRETER, 0, null)));
+        listeCarte.add(new ButtonCarte(this, new Carte("Tourner le bras", Robot.TOURNER_LE_BRAS, 0, null)));
+        listeCarte.add(new ButtonCarte(this, new Carte("Pause", Robot.PAUSE, 1, new String[]{"Durée (s)"})));
+        listeCarte.add(new ButtonCarte(this, new Carte("Detecter un son", Robot.DETECTER_SON, 0, null)));
+        listeCarte.add(new ButtonCarte(this, new Carte("Bipper", Robot.BIP, 0, null)));
+        listeCarte.add(new ButtonCarte(this, new Carte("Jouer Musique", Robot.MUSIQUE, 0, null)));
+        for(Carte c : loadListeCarte)
+            listeCarte.add(new ButtonCarte(this, c));
 
-            for(Carte c : loadListeCarte)
-                listeCarte.add(new ButtonCarte(this, c));
 
-
-            for(final ButtonCarte btnCarte : listeCarte){
-                btnCarte.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listeCarteScenario.add(btnCarte.getCarte());
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-                layoutFonction.addView(btnCarte);
-            }
+        for(final ButtonCarte btnCarte : listeCarte){
+            btnCarte.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listeCarteScenario.add(btnCarte.getCarte());
+                    adapter.notifyDataSetChanged();
+                }
+            });
+            layoutFonction.addView(btnCarte);
         }
 
         ImageView img_qrcode =  (ImageView) findViewById(R.id.img_qrcode);
@@ -171,8 +178,13 @@ public class ScenarioActivity extends Activity {
 
     private void envoyerScenario() {
         for(Carte c : listeCarteScenario){
-            Log.e("CARTE",c.getNom());
-            Robot.envoyerCommande(this, c.getActionRobot());
+            if(c.getNbParametre() == 0) Robot.envoyerCommande(this, c.getActionRobot());
+            else{
+                String command = c.getActionRobot();
+                for(String s : c.getParametres())
+                    command += s;
+                Robot.envoyerCommande(this, command);
+            }
         }
     }
 
@@ -180,52 +192,52 @@ public class ScenarioActivity extends Activity {
         Carte c;
         switch(result){
             case "AVANCER":
-                c = new Carte("Avancer", Robot.AVANCER);
+                c = new Carte("Avancer", Robot.AVANCER, 2, new String[]{"Durée (s)", "Vitesse"});
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "RECULER":
-                c = new Carte("Reculer", Robot.RECULER);
+                c = new Carte("Reculer", Robot.RECULER, 2, new String[]{"Durée (s)", "Vitesse"});
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "TOURNERGAUCHE":
-                c = new Carte("Tourner a gauche", Robot.TOURNER_A_GAUCHE);
+                c = new Carte("Tourner a gauche", Robot.TOURNER_A_GAUCHE, 1, new String[]{"Degrée (°)"});
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "TOURNERDROITE":
-                c = new Carte("Tourner a droite", Robot.TOURNER_A_DROITE);
+                c = new Carte("Tourner a droite", Robot.TOURNER_A_DROITE, 1, new String[]{"Degrée (°)"});
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "ARRETER":
-                c = new Carte("Arreter", Robot.ARRETER);
+                c = new Carte("Arreter", Robot.ARRETER, 0, null);
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "TOURNERBRAS":
-                c = new Carte("Tourner le bras", Robot.TOURNER_LE_BRAS);
+                c = new Carte("Tourner le bras", Robot.TOURNER_LE_BRAS, 0, null);
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "PAUSE":
-                c = new Carte("Pause", Robot.PAUSE);
+                c = new Carte("Pause", Robot.PAUSE, 1, new String[]{"Durée (s)"});
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "DETECTERSON":
-                c = new Carte("Detecter un son", Robot.DETECTER_SON);
+                c = new Carte("Detecter un son", Robot.DETECTER_SON, 0, null);
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "BIP":
-                c = new Carte("Bipper", Robot.BIP);
+                c = new Carte("Bipper", Robot.BIP, 0, null);
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
             case "MUSIQUE":
-                c = new Carte("Jouer Musique", Robot.MUSIQUE);
+                c = new Carte("Jouer Musique", Robot.MUSIQUE, 0, null);
                 listeCarteScenario.add(c);
                 adapter.notifyDataSetChanged();
                 break;
