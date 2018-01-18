@@ -14,7 +14,7 @@
     // ScenarioActivity String
     <string name="scenario_titre">Scénario</string>
     <string name="scenario_fonction">Fonctionnalitées</string>
-    <string name="scenario_context">Cette page vous permet de créer vos scénarios.\nEn cliquant sur une fonctionnalitées, cela l\'ajoute dans le scénario.\nVous pouvez ensuite envoyé le scénario au robot qui l'exécutera.</string>
+    <string name="scenario_context">Cette page vous permet de créer vos scénarios.\nEn cliquant sur une fonctionnalitées, cela l\'ajoute dans le scénario.\nVous pouvez ensuite envoyé le scénario au robot qui l'exécutera.\n</string>
 
 
     <string name="controlleur_context">Cette page vous permet de piloter votre robot en temps réel.</string>

@@ -76,6 +76,7 @@ public class AdapterCarte extends BaseAdapter{
                         nomParam.setText(data.get(indice).getNomParametres(i));
 
                         EditText editText = new EditText(context);
+                        editText.setText(data.get(indice).getParametre(i));
                         editText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                         tabEditText[i] = editText;
 

@@ -34,6 +34,10 @@ public class Carte {
         return parametres;
     }
 
+    public String getParametre(int i){
+        return parametres[i];
+    }
+
     public String getNomParametres(int i){ return nomParametres[i];}
 
     public void setParametre(int num, String parametre){

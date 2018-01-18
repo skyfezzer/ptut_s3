@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import com.example.i162174.robot.R;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.UUID;
@@ -40,7 +42,7 @@ public class Robot {
 
     private static BluetoothSocket socket;
     private static OutputStream oStream;
-    private static OutputStreamWriter osw;
+    private static PrintWriter osw;
 
     public static void connectionRobot(Context context, BluetoothAdapter bluetoothAdapter){
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
@@ -52,8 +54,7 @@ public class Robot {
                     assert socket != null;
                     socket.connect();
                     oStream = socket.getOutputStream();
-                    osw = new OutputStreamWriter(oStream);
-                    envoyerCommande(context, "05");
+                    osw = new PrintWriter(oStream);
                     context.startActivity(new Intent(context, ScenarioActivity.class));
                     ((Activity) context).finish();
                     Toast.makeText(context, R.string.connection_reussi, LENGTH_LONG).show();
@@ -84,19 +85,14 @@ public class Robot {
 
     // Permet l'émission de la commande voulut au robot
     public static void envoyerCommande(Context context, String command) {
-        command += "\n";
         Log.e("MESSAGE ENVOYÉ :", command);
         if (socket == null){
             Toast.makeText(context, R.string.connection_non_connecte, LENGTH_LONG).show();
             return;
         }
-        try {
-            osw.write(command);
-            osw.flush();
-            Toast.makeText(context, R.string.connection_message_envoye, Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        osw.print(command+"\n");
+        osw.flush();
+        Toast.makeText(context, R.string.connection_message_envoye, Toast.LENGTH_SHORT).show();
     }
 
     public static void deconnectionRobot(Context context) {

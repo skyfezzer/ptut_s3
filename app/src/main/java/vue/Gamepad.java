@@ -85,7 +85,6 @@ public class Gamepad extends GridLayout {
                     case MotionEvent.ACTION_UP:
                         mHandler.removeCallbacks(actionTournerGauche);
                         Robot.envoyerCommande(context, Robot.ARRETER);
-                        Robot.envoyerCommande(context, Robot.ARRETER);
                         mHandler = null;
                         return true;
                 }
@@ -113,7 +112,6 @@ public class Gamepad extends GridLayout {
                         return true;
                     case MotionEvent.ACTION_UP:
                         mHandler.removeCallbacks(actionTournerDroite);
-                        Robot.envoyerCommande(context, Robot.ARRETER);
                         Robot.envoyerCommande(context, Robot.ARRETER);
                         mHandler = null;
                         return true;
